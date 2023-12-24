@@ -72,8 +72,7 @@ function Main({ children }) {
 function Input({ setWeight, setHeight, weight, height }) {
   return (
     <form className="input">
-      <h2>Enter Data</h2>
-      <label>Weight:</label>
+      <label>Weight (kg)</label>
       <input
         type="number"
         placeholder="kg"
@@ -83,7 +82,7 @@ function Input({ setWeight, setHeight, weight, height }) {
         max={150}
       />
 
-      <label>Height:</label>
+      <label>Height (cm)</label>
       <input
         type="number"
         placeholder="cm"
@@ -117,10 +116,9 @@ function Output({ bmi }) {
 
   return (
     <div className="output">
-      <h2>Your BMI</h2>
+      <h2>Your BMI is: {bmi}</h2>
       <div className="result">
-        <p className="bmi">{bmi}</p>
-        <p style={{ color: getHealthStatus().color, fontWeight: 400 }}>
+        <p style={{ color: getHealthStatus().color, fontWeight: 500 }}>
           {getHealthStatus().label}
         </p>
       </div>
