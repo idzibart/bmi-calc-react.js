@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react";
+import { Wrapper } from "./components/Wrapper";
+import { Nav } from "./components/Nav";
+import { Main } from "./components/Main";
+import { Input } from "./components/Input";
+import { Error } from "./components/Error";
+import { Output } from "./components/Output";
 
 export default function App() {
   const [weight, setWeight] = useState("");
@@ -46,86 +52,8 @@ export default function App() {
           weight={weight}
           height={height}
         />
-        {error && <Error errorMessage={error} />}
-        <Output bmi={bmi} />
+        {error ? <Error errorMessage={error} /> : <Output bmi={bmi} />}
       </Main>
     </Wrapper>
   );
-}
-
-function Wrapper({ children }) {
-  return <div className="wrapper">{children}</div>;
-}
-
-function Nav() {
-  return (
-    <nav className="nav-bar">
-      <h1>BMI Calculator</h1>
-    </nav>
-  );
-}
-
-function Main({ children }) {
-  return <div className="main">{children}</div>;
-}
-
-function Input({ setWeight, setHeight, weight, height }) {
-  return (
-    <form className="input">
-      <label>Weight (kg)</label>
-      <input
-        type="number"
-        placeholder="kg"
-        value={weight}
-        onChange={(e) => setWeight(e.target.value)}
-        min={10}
-        max={150}
-      />
-
-      <label>Height (cm)</label>
-      <input
-        type="number"
-        placeholder="cm"
-        value={height}
-        onChange={(e) => setHeight(e.target.value)}
-        min={80}
-        max={230}
-      />
-    </form>
-  );
-}
-
-function Output({ bmi }) {
-  const getHealthStatus = () => {
-    const healthStatus =
-      bmi === null
-        ? { label: "Enter valid data to calculate BMI." }
-        : bmi < 18.5
-        ? { label: "Underweight", color: "#f0c000" }
-        : bmi < 25
-        ? { label: "Normal weight", color: "#00c200" }
-        : bmi < 30
-        ? { label: "Overweight", color: "#e48900" }
-        : { label: "Obesity", color: "#bb2500" };
-
-    return {
-      label: healthStatus.label,
-      color: healthStatus.color,
-    };
-  };
-
-  return (
-    <div className="output">
-      <h2>Your BMI is: {bmi}</h2>
-      <div className="result">
-        <p style={{ color: getHealthStatus().color, fontWeight: 500 }}>
-          {getHealthStatus().label}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Error({ errorMessage }) {
-  return <p className="error">{errorMessage}</p>;
 }
